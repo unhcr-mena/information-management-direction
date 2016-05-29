@@ -16,7 +16,7 @@ require(lubridate)
 
 <div class="jumbotron">
   <h1>Information Management <br /></h1>
-  <h2>directions<br />
+  <h2>Technical directions<br />
   for MENA Region</h2>
   <p>Last update : `r I(format(today(), "%e %B %Y"))`</p>
 </div>
