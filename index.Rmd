@@ -22,7 +22,8 @@ require(lubridate)
 </div>
 
 
-## 
+## Intro 
+
 <div class="alert alert-warning" style="font-weight: bold;">
 ## Disclaimer
   <p>The toolkit is a *collaborative effort*: if you have suggestions, please share them <a href="https://github.com/unhcr-mena/information-management-direction/issues" style="color: white;">through this link</a>.</p>
