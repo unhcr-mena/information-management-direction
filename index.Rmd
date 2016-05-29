@@ -1,0 +1,74 @@
+---
+title: ""
+output:
+  html_document:
+    toc: false
+---
+
+```{r options, results='hide', echo=FALSE, message=FALSE, warning=FALSE}
+if (Sys.info()["sysname"] == "Windows") {
+  Sys.setlocale("LC_TIME", "english")
+} else  {
+  Sys.setlocale("LC_TIME", "en_US");
+}
+require(lubridate)
+```
+
+<div class="jumbotron">
+  <h1>Information Management <br /></h1>
+  <h2>directions<br />
+  for MENA Region</h2>
+  <p>Last update : `r I(format(today(), "%e %B %Y"))`</p>
+</div>
+
+
+## 
+<div class="alert alert-warning" style="font-weight: bold;">
+## Disclaimer
+  <p>The toolkit is a *collaborative effort*: if you have suggestions, please share them <a href="https://github.com/unhcr-mena/information-management-direction/issues" style="color: white;">through this link</a>.</p>
+  <p>The Toolkit is a *work in progress*: if you identify issues, please share them <a href="https://github.com/unhcr-mena/information-management-direction/issues" style="color: white;">through this link</a>.</p>
+</div>
+
+## Table of Content{#tdm}
+
+
+```{r tdm semi-programmatique, results='hide', message=FALSE, echo=FALSE,  warning=FALSE, include=FALSE, cache=FALSE}
+base_url <- ""
+urls <- paste0(base_url, "index.html")
+
+tdm <- function(section) {
+  require(xml2)
+  res <- "<div class=\"row\">\n"
+  
+  menu <- read_html("include/before_body.html", encoding = "UTF-8")
+  section <- xml_find_one(menu, paste0(".//ul[@id='menu_", section, "']"))
+  sous_sections <- xml_find_all(section, ".//ul")
+  
+  for (ss in sous_sections) {
+    res <- paste0(res, "<div class=\"col-md-4\">\n")
+    titre <- as.character(xml_contents(xml_find_one(ss, ".//li[@class='dropdown-header']")))
+    Encoding(titre) <- "UTF-8"
+    res <- paste0(res, "<p><strong>", titre, "</strong></p>\n")
+    res <- paste0(res, "<div class=\"list-group\">\n")
+    
+    items <- xml_find_all(ss, ".//a")
+    for (item in items) {
+      lien <- xml_attr(item, "href")
+      titre <- as.character(xml_contents(item))
+      Encoding(titre) <- "UTF-8"
+      res <- paste0(res, "<a href=\"", lien,"\" class=\"list-group-item\">", titre, "</a>\n")
+      urls <<- c(urls, paste0(base_url, lien))
+    }
+
+    res <- paste0(res, "</div>\n</div>\n\n")
+  }
+  
+  res <- paste0(res, "</div>")
+  return(res)
+}
+```
+
+
+### Credits
+
+Large parts of the toolkit are extracted from other existing guidelines referenced above. 
