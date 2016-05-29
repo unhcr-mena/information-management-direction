@@ -1,0 +1,5 @@
+install.packages("rmarkdown")
+install.packages("stringr")
+install.packages("xml2")
+install.packages("lubridate")
+install.packages("devtools")
